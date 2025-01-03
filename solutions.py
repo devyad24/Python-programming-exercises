@@ -1,7 +1,8 @@
-from curses.ascii import isalpha, isdigit, islower, isupper
+from curses.ascii import isalnum, isalpha, isdigit, islower, isupper
 import math
+from operator import itemgetter
 import timeit
-from re import split
+import re
 import heapq
 '''
 q1:
@@ -383,3 +384,58 @@ q18:
     Then, the output of the program should be:
     ABd1234@1
 '''
+
+def q_18():
+    passwords = [x for x in input().split(',')]
+    valid_passwrd = []
+    for p in passwords:
+        if len(p) < 6 or len(p) > 12:
+            continue  
+        elif not re.search('[a-z]', p):
+            continue
+        elif not re.search('[A-Z]', p):
+            continue
+        elif not re.search('[0-9]', p):
+            continue
+        elif not re.search('[$#@]', p):
+            continue
+        else:
+            valid_passwrd.append(p)
+    print(','.join(valid_passwrd))
+
+# q_18()
+
+'''
+q19:
+
+    You are required to write a program to sort the (name, age, height) tuples by ascending order where name is string, age and height are numbers. The tuples are input by console. The sort criteria is:
+    1: Sort based on name;
+    2: Then sort based on age;
+    3: Then sort by score.
+    The priority is that name > age > score.
+    If the following tuples are given as input to the program:
+    Tom,19,80
+    John,20,90
+    Jony,17,91
+    Jony,17,93
+    Json,21,85
+    Then, the output of the program should be:
+    [('John', '20', '90'), ('Jony', '17', '91'), ('Jony', '17', '93'), ('Json', '21', '85'), ('Tom', '19', '80')]
+'''
+
+def q_19():
+
+    details = []
+    while True:
+        detail = input()
+        if detail:
+            details.append(tuple(detail.split(',')))
+        else:
+            break
+    print(sorted(details, key=itemgetter(0,1,2)))
+
+# q_19()
+
+
+
+
