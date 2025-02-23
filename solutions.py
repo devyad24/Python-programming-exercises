@@ -1,10 +1,14 @@
+from collections import defaultdict
 from curses.ascii import isalnum, isalpha, isdigit, islower, isupper
 import itertools
 import math
 from operator import itemgetter
+import os
 import timeit
 import re
 import heapq
+
+from traitlets import default
 '''
 q1:
     Write a program which will find all such numbers which are divisible by 7 but are not a multiple of 5,
@@ -451,4 +455,196 @@ def q_20():
         a = a + 1
         if b % 7 == 0:
             yield b
-print(list(itertools.islice(q_20(), 100)))
+# print(list(itertools.islice(q_20(), 100)))
+
+'''
+q21:
+    A robot moves in a plane starting from the original point (0,0). The robot can move toward UP, DOWN, LEFT and RIGHT with a given steps. The trace of robot movement is shown as the following:
+    UP 5
+    DOWN 3
+    LEFT 3
+    RIGHT 2
+    ¡­
+    The numbers after the direction are steps. Please write a program to compute the distance from current position after a sequence of movement and original point. If the distance is a float, then just print the nearest integer.
+    Example:
+    If the following tuples are given as input to the program:
+    UP 5
+    DOWN 3
+    LEFT 3
+    RIGHT 2
+    Then, the output of the program should be:
+    2
+'''
+def q_21():
+    pos = [0, 0]
+
+    while True:
+        s = input()
+        if not s:
+            break
+        movement = s.split(' ')
+        direction = movement[0]
+        step = int(movement[1])
+
+        if direction == 'UP':
+            pos[1] += step
+        elif direction == 'DOWN':
+            pos[1] -= step
+        elif direction == 'LEFT':
+            pos[0] -= step
+        elif direction == 'RIGHT':
+            pos[0] += step
+        else:
+            pass
+    #distance formula for two points on a cartesian plane is ((x2-x1)^2 + (y2-y1)^2)^1/2 here x1 = y1 = 0
+    print(int(round(math.sqrt(pos[0]**2 + pos[1]**2))))
+
+# q_21()
+
+'''
+q22:
+    Write a program to compute the frequency of the words from the input. The output should output after sorting the key alphanumerically. 
+    Suppose the following input is supplied to the program:
+    New to Python or choosing between Python 2 and Python 3? Read Python 2 or Python 3.
+    Then, the output should be:
+    2:2
+    3.:1
+    3?:1
+    New:1
+    Python:5
+    Read:1
+    and:1
+    between:1
+    choosing:1
+    or:2
+    to:1
+'''
+
+def q_22():
+    word_freq = defaultdict(int)
+    s = input()
+    words = s.split(' ')
+    words.sort()
+    for i in range(len(words)):
+        word_freq[words[i]] += 1
+    print(word_freq)
+    return word_freq
+
+# word_freq = q_22()
+# print('\n'.join([f'{k}:{v}' for k,v in word_freq.items()]))
+
+
+'''
+q23:
+    Write a method which can calculate square value of number
+'''
+
+def q_23():
+    s = input()
+    if not isdigit(s):
+        pass
+    s = int(s)
+    return s**2
+
+# square_val = q_23()
+# print(square_val)
+
+'''
+q24:
+    Python has many built-in functions, and if you do not know how to use it, you can read document online or find some books. But Python has a built-in document function for every built-in functions.
+    Please write a program to print some Python built-in functions documents, such as abs(), int(), input()
+
+And add document for your own function
+'''
+
+def q_24():
+    '''
+    This method returns docs of some popular python methods.
+    And this is the documentation of current method.
+    '''
+    print(abs.__doc__)
+    print(int.__doc__)
+    print(input.__doc__)
+
+    return
+
+
+# a = q_24
+# print(a.__doc__)
+# print(a())
+
+'''
+q25:
+    Define a class, which have a class parameter and have a same instance parameter.
+'''
+class dummy:
+    number = 0
+    def __init__(self, number=0):
+        self.number = number
+    
+    def increment_num(self):
+        self.number += 1
+    def decrement_num(self):
+        self.number -= 1
+    def get_num(self):
+        return self.number
+    def set_num(self, number):
+        self.number = number
+
+# s = input()
+# new_cls = dummy(int(s))
+# print(new_cls.get_num())
+# new_cls.increment_num()
+# new_cls.increment_num()
+# print(new_cls.get_num())
+# new_cls.decrement_num()
+# print(new_cls.get_num())
+
+'''
+q26:
+    Define a function which can compute the sum of two numbers.
+'''
+def q_26():
+    s = input()
+    nums = s.split(' ')
+    a = int(nums[0])
+    b = int(nums[1])
+    return a + b
+# print(q_26())
+
+'''
+q27:
+    Define a function that can convert a integer into a string and print it in console.
+'''
+
+def q_27(a):
+    return str(a)
+# int_in_str = q_27(55)
+# print(int_in_str, type(int_in_str))
+
+'''
+q28:
+
+'''
+
+'''
+q29:
+    solution same as q26
+'''
+
+'''
+q30:
+    Define a function that can accept two strings as input and concatenate them and then print it in console.
+'''
+def q_30():
+    s = input()
+    return "".join(s.split(' '))
+# print(q_30())
+
+
+
+
+
+
+
+    
